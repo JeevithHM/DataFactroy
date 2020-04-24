@@ -1,0 +1,41 @@
+{
+	"name": "DS_SQL_TargetDB_ConfigurationTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_TargetDB",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "TableName",
+				"type": "varchar"
+			},
+			{
+				"name": "WaterMarkColumn",
+				"type": "varchar"
+			},
+			{
+				"name": "TableType",
+				"type": "varchar"
+			},
+			{
+				"name": "SPNameforMergeOperation",
+				"type": "varchar"
+			},
+			{
+				"name": "SQLQuery",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Tables"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
