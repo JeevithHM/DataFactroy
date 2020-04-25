@@ -1,0 +1,52 @@
+{
+	"name": "DS_Blob_PurchaseOrder",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "PurchaseOrder.txt",
+				"container": "jeevith"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PurchaseOrderID",
+				"type": "String"
+			},
+			{
+				"name": "CustomerCode",
+				"type": "String"
+			},
+			{
+				"name": "ProductCode",
+				"type": "String"
+			},
+			{
+				"name": "EmployeCode",
+				"type": "String"
+			},
+			{
+				"name": "PurchaseOrderDate",
+				"type": "String"
+			},
+			{
+				"name": "Quantity",
+				"type": "String"
+			},
+			{
+				"name": "UnitPrice",
+				"type": "String"
+			}
+		]
+	}
+}

@@ -1,0 +1,40 @@
+{
+	"name": "PL_DataFlow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_Blob_PurchaseOrder",
+						"type": "DatasetReference"
+					},
+					"name": "PurchaseOrderSorce"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Blob_Customer",
+						"type": "DatasetReference"
+					},
+					"name": "CustomerSource"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "PurchaseOrderProject"
+				},
+				{
+					"name": "CustomerProject"
+				},
+				{
+					"name": "JoinStream"
+				},
+				{
+					"name": "MerticsStream"
+				}
+			],
+			"script": "source(output(\n\t\tPurchaseOrderID as string,\n\t\tCustomerCode as string,\n\t\tProductCode as string,\n\t\tEmployeCode as string,\n\t\tPurchaseOrderDate as string,\n\t\tQuantity as integer,\n\t\tUnitPrice as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> PurchaseOrderSorce\nsource(output(\n\t\tCustomerCode as string,\n\t\tCustomerName as string,\n\t\tAddress as string,\n\t\tPhoneNumber as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> CustomerSource\nPurchaseOrderSorce select(mapColumn(\n\t\tCustomerCode,\n\t\tProductCode,\n\t\tQuantity\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> PurchaseOrderProject\nCustomerSource select(mapColumn(\n\t\tCustomerCode,\n\t\tCustomerName\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> CustomerProject\nPurchaseOrderProject, CustomerProject join(PurchaseOrderProject@CustomerCode == CustomerProject@CustomerCode,\n\tjoinType:'inner',\n\tbroadcast: 'none')~> JoinStream\nJoinStream aggregate(groupBy(PurchaseOrderProject@CustomerCode),\n\tcount = sum(Quantity)) ~> MerticsStream"
+		}
+	}
+}
