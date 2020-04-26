@@ -1,0 +1,43 @@
+{
+	"name": "PL_Employee",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OLTP"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Employee.txt",
+				"container": "oltpordersystem"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "EmployeeCode",
+				"type": "String"
+			},
+			{
+				"name": " EmployeeName",
+				"type": "String"
+			},
+			{
+				"name": " Address",
+				"type": "String"
+			},
+			{
+				"name": " PhoneNumber",
+				"type": "String"
+			}
+		]
+	}
+}

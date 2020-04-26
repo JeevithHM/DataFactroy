@@ -1,0 +1,39 @@
+{
+	"name": "PL_Product",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OLTP"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Product.txt",
+				"container": "oltpordersystem"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ProductCode",
+				"type": "String"
+			},
+			{
+				"name": " ProductName",
+				"type": "String"
+			},
+			{
+				"name": " ProductGroup",
+				"type": "String"
+			}
+		]
+	}
+}
