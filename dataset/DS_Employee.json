@@ -1,0 +1,37 @@
+{
+	"name": "DS_Employee",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_Staging",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OLTP"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EmployeeCode",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmployeeName",
+				"type": "varchar"
+			},
+			{
+				"name": "Address",
+				"type": "varchar"
+			},
+			{
+				"name": "PhoneNumber",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "StagingEmployee"
+		}
+	}
+}

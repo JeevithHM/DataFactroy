@@ -1,0 +1,33 @@
+{
+	"name": "DS_Product",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_Staging",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OLTP"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ProductCode",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ProductName",
+				"type": "varchar"
+			},
+			{
+				"name": "ProductGroup",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "StagingProduct"
+		}
+	}
+}

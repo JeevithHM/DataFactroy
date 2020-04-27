@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "PL_CopytoStagging",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Copy Customer",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -15,8 +15,350 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "CustomerCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CustomerCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "CustomerName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CustomerName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Address",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PhoneNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PhoneNumber",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PL_Customer",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Customer",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy Products",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ProductCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductGroup",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductGroup",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PL_Product",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Product",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "CopyEmployees",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "EmployeeCode",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "EmployeeCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "EmployeeName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EmployeeName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Address",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PhoneNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PhoneNumber",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Employee",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Employee",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy PurchaseORder",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "PurchaseOrderID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PurchaseOrderID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "CustomerCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CustomerCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "EmployeeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EmployeeCode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "PuchaseOrderDate",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PuchaseOrderDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Quantity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Quantity",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "UnitPrice",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UnitPrice",
+									"type": "Decimal"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Pl_PurchaseOrder",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_PurchaseOrder",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
